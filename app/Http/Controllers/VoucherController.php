@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\product;
+use App\Models\voucher;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class VoucherController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,15 +35,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $table = product::create([
-            "category" => $request->category,
+        $table = voucher::create([
             "title" => $request->title,
-            "price" => $request->price,
-            "spesification" => $request->spesification,
-            "description" => $request->description,
-            "ship_from" => $request->ship_from,
-            "stock" => $request->stock,
-            "voucher" => $request->voucher,
+            "code" => $request->code,
+            "periode" => $request->periode,
+            "nominal" => $request->nominal,
+            "max_user" => $request->max_user
         ]);
 
         return response()->json([
@@ -61,11 +58,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = product::find($id);
-        if ($product) {
+        $voucher = voucher::find($id);
+        if ($voucher) {
             return response()->json([
                 'status' => 200,
-                'data' => $product
+                'data' => $voucher
             ], 200);
         } else {
             return response()->json([
@@ -95,20 +92,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = product::find($id);
-        if ($product) {
-            $product->category = $request->category ? $request->category : $product->category;
-            $product->title = $request->title ? $request->title : $product->title;
-            $product->price = $request->price ? $request->price : $product->prices;
-            $product->spesification = $request->spesification ? $request->spesification : $product->spesification;
-            $product->description = $request->description ? $request->description : $product->description;
-            $product->ship_from = $request->ship_from ? $request->ship_from : $product->ship_from;
-            $product->stock = $request->stock ? $request->stock : $product->stock;
-            $product->voucher = $request->voucher ? $request->voucher : $product->voucher;
-            $product->save();
+        $voucher = voucher::find($id);
+        if ($voucher) {
+            $voucher->title = $request->title ? $request->title : $voucher->title;
+            $voucher->code = $request->prcodeice ? $request->code : $voucher->code;
+            $voucher->periode = $request->periode ? $request->periode : $voucher->periode;
+            $voucher->nominal = $request->nominal ? $request->nominal : $voucher->nominal;
+            $voucher->max_user = $request->max_user ? $request->max_user : $voucher->max_user;
+            $voucher->save();
             return response()->json([
                 'status' => 200,
-                'data' => $product
+                'data' => $voucher
             ], 200);
         } else {
             return response()->json([
@@ -126,12 +120,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = product::where('id', $id)->first();
-        if ($product) {
-            $product->delete();
+        $voucher = voucher::where('id', $id)->first();
+        if ($voucher) {
+            $voucher->delete();
             return response()->json([
                 'status' => 200,
-                'data' => $product
+                'data' => $voucher
             ], 200);
         } else {
             return response()->json([
