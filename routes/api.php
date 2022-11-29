@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VoucherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,3 +33,15 @@ Route::get('/voucher/{id}', [VoucherController::class, 'show']);
 Route::post('/voucher', [VoucherController::class, 'store']);
 Route::put('/voucher', [VoucherController::class, 'update']);
 Route::delete('/voucher', [VoucherController::class, 'destroy']);
+
+Route::get('/category', [CategoryController::class, 'index']);
+Route::get('/category/{id}', [CategoryController::class, 'show']);
+Route::post('/category', [CategoryController::class, 'store']);
+Route::put('/category', [CategoryController::class, 'update']);
+Route::delete('/category', [CategoryController::class, 'destroy']);
+
+Route::get('/transaction', [TransactionController::class, 'index']);
+Route::get('/transaction/{id}', [TransactionController::class, 'show']);
+Route::post('/transaction', [TransactionController::class, 'store']);
+Route::put('/transaction', [TransactionController::class, 'update']);
+Route::delete('/transaction', [TransactionController::class, 'destroy']);

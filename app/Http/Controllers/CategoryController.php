@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\voucher;
+use App\Models\category;
 use Illuminate\Http\Request;
 
-class VoucherController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +14,11 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $voucher = voucher::all();
+        $category = category::all();
         return response()->json([
             'status' => 200,
             'message' => "data succesfully sent",
-            'data' => $voucher
+            'data' => $category
         ]);
     }
 
@@ -40,12 +40,8 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        $table = voucher::create([
+        $table = category::create([
             "title" => $request->title,
-            "code" => $request->code,
-            "periode" => $request->periode,
-            "nominal" => $request->nominal,
-            "max_user" => $request->max_user
         ]);
 
         return response()->json([
@@ -63,11 +59,11 @@ class VoucherController extends Controller
      */
     public function show($id)
     {
-        $voucher = voucher::find($id);
-        if ($voucher) {
+        $category = category::find($id);
+        if ($category) {
             return response()->json([
                 'status' => 200,
-                'data' => $voucher
+                'data' => $category
             ], 200);
         } else {
             return response()->json([
@@ -97,17 +93,13 @@ class VoucherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $voucher = voucher::find($id);
-        if ($voucher) {
-            $voucher->title = $request->title ? $request->title : $voucher->title;
-            $voucher->code = $request->prcodeice ? $request->code : $voucher->code;
-            $voucher->periode = $request->periode ? $request->periode : $voucher->periode;
-            $voucher->nominal = $request->nominal ? $request->nominal : $voucher->nominal;
-            $voucher->max_user = $request->max_user ? $request->max_user : $voucher->max_user;
-            $voucher->save();
+        $category = category::find($id);
+        if ($category) {
+            $category->title = $request->title ? $request->title : $category->title;
+            $category->save();
             return response()->json([
                 'status' => 200,
-                'data' => $voucher
+                'data' => $category
             ], 200);
         } else {
             return response()->json([
@@ -125,12 +117,12 @@ class VoucherController extends Controller
      */
     public function destroy($id)
     {
-        $voucher = voucher::where('id', $id)->first();
-        if ($voucher) {
-            $voucher->delete();
+        $category = category::where('id', $id)->first();
+        if ($category) {
+            $category->delete();
             return response()->json([
                 'status' => 200,
-                'data' => $voucher
+                'data' => $category
             ], 200);
         } else {
             return response()->json([
